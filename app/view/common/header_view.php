@@ -36,6 +36,9 @@
 						<li>
 							<a href="?c=test">Test-demo</a>
 						</li>
+						<li>
+							<a href="?c=home">Quiz-home</a>
+						</li>
 					</ul>
 				</div>
 			</div>

@@ -15,6 +15,21 @@ class TestController extends Controller
 {
 	public function index()
 	{
-		# code...
+		// load header 
+		$header = [];
+		$header['title'] = 'This is test controller';
+		$this->loadHeader($header);
+
+		// load view
+		$this->loadView('test/index_view.php');
+
+		// load footer
+		$this->loadFooter();
 	}
 }
+
+$m = $_GET['m'] ?? 'index';
+$test = new TestController;
+$test->$m();
+
+
