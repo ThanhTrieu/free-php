@@ -22,6 +22,11 @@ class Router
 		// nap controller vao
 		require 'app/controller/HomeController.php';
 	}
+
+	public function test()
+	{
+		require 'app/controller/TestController.php';
+	}
 }
 
 // bat lay cac params ma nguoi dung gui len

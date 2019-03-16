@@ -1,51 +1,47 @@
 <?php if(!defined('ROOT_PATH')) die('Can not access'); ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Demo MVC</title>
-	<link rel="stylesheet" href="">
-</head>
-<body>
-	<h1> Hello PHP !</h1>
-	<table width="100%" border="1" cellpadding="0" cellspacing="0">
-		<caption>Thong tin sinh vien</caption>
-		<thead>
-			<tr>
-				<th>MSV</th>
-				<th>Ten</th>
-				<th>SDT</th>
-				<th>Dia chi</th>
-				<th>Gioi tinh</th>
-				<th>Tien</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php foreach($data as $key => $item): ?>
-			<tr>
-				<td>
-					<?= $item['id']; ?>
-				</td>
-				<td>
-					<?= $item['name']; ?>
-				</td>
-				<td>
-					<?= $item['phone']; ?>
-				</td>
-				<td>
-					<?= $item['address']; ?>
-				</td>
-				<td>
-					<?= ($item['gender'] == 1) ? 'Nam' : 'Nu'; ?>
-				</td>
-				<td>
-					<?= number_format($item['money']); ?>
-				</td>
-			</tr>
-			<?php endforeach; ?>
-		</tbody>
-	</table>
-</body>
-</html>
+
+<div class="col-md-10 column">
+	<h1>Quiz Questions !</h1>
+	<div id="content-data">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					Ban tuyen ngon doc lap dau tien la gi ?
+				</h3>
+			</div>
+			<div class="panel-body">
+				<div class="radio">
+					<label>
+						<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"> Binh Ngo Dai Cao
+					</label>
+				</div>
+				<div class="radio">
+					<label>
+						<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"> Nam Quoc Son Ha
+					</label>
+				</div>
+				<div class="radio">
+					<label>
+						<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3"> Ban tuyen ngon doc lap 2/9
+					</label>
+				</div>
+				<div class="radio">
+					<label>
+						<input type="radio" name="optionsRadios" id="optionsRadios4" value="option4"> Hich Tuong Si
+					</label>
+				</div>
+			</div>
+			<div class="panel-footer">
+				<div class="row">
+					<div class="col-sm-12 col-md-2">
+						<button class="btn btn-primary btn-block" role="button">Xác nhận</button>
+					</div>
+					<div class="col-sm-12 col-md-2">
+						<button class="btn btn-default btn-block disabled" role="button">Tiếp theo</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

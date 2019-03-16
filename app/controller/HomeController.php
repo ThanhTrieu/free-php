@@ -8,12 +8,16 @@ if(!defined('ROOT_PATH')){
 	// die : dung chuong trinh lai
 }
 
+// ke thua file Controller mau(goc)
+require 'app/controller/Controller.php';
+use App\Controller\Controller;
+
 // nap model 
 require 'app/model/HomeModel.php';
 use App\Model\HomeModel;
 
 
-class HomeController 
+class HomeController extends Controller
 {
 	private $home;
 	public function __construct()
@@ -27,7 +31,17 @@ class HomeController
 	{
 		//echo "Hello you";
 		$data = $this->home->getInfoDataST();
-		require 'app/view/home/index_view.php';
+
+		// load header
+		$header = [];
+		$header['title'] = 'Demo OOP PHP - 123';
+		$this->loadHeader($header);
+
+		// load view - load content
+		$this->loadView('home/index_view.php');
+		
+		// load footer
+		$this->loadFooter();
 	}
 }
 
