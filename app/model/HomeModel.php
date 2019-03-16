@@ -7,7 +7,11 @@ if(!defined('ROOT_PATH')){
 	// die : dung chuong trinh lai
 }
 
-class HomeModel 
+require 'app/config/database.php';
+use App\Config\Database;
+use \PDO;
+
+class HomeModel extends Database
 {
 	public function getInfoDataST()
 	{

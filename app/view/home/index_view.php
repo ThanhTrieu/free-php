@@ -1,6 +1,5 @@
 <?php if(!defined('ROOT_PATH')) die('Can not access'); ?>
 
-
 <div class="col-md-10 column">
 	<h1>Quiz Questions !</h1>
 	<div id="content-data">
