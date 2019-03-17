@@ -1,6 +1,12 @@
 <?php 
 namespace App\Controller;
 
+if(!defined('ROOT_PATH')){
+	// defined : kiem tra su ton tai cu hang so
+	die('can not access');
+	// die : dung chuong trinh lai
+}
+
 class Controller 
 {
 
