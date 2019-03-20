@@ -29,8 +29,10 @@ class HomeController extends Controller
 
 	public function index()
 	{
-		//echo "Hello you";
-		$data = $this->home->getInfoDataST();
+		$data = [];
+		$data['question'] = $this->home->getDataRandomQuestion();
+		$idQuestion = $data['question']['id'] ?? 0;
+		$data['answers'] = $this->home->getDataAnswerByIdQuestion($idQuestion);
 
 		// load header
 		$header = [];
@@ -38,10 +40,25 @@ class HomeController extends Controller
 		$this->loadHeader($header);
 
 		// load view - load content
-		$this->loadView('home/index_view.php');
+		// ,$data : truyen du lieu ra view
+		$this->loadView('home/index_view.php',$data);
 		
 		// load footer
 		$this->loadFooter();
+	}
+
+	public function answerQuestion()
+	{
+		$idAnswer = $_POST['idAnswer'] ?? '';
+		$idAnswer = is_numeric($idAnswer) ? $idAnswer : 0;
+
+		$idQuestion = $_POST['idQuestion'] ?? '';
+		$idQuestion = is_numeric($idQuestion) ? $idQuestion : 0;
+
+		// xu ly kiem tra cau tra loi dung hay sai
+		$anser = $this->home->checkingAnswerQuestion($idQuestion, $idAnswer);
+		// tra ket qua ve cho view ajax
+		echo $anser;
 	}
 }
 

@@ -15,7 +15,7 @@ class Controller
 		// load phan view header
 		extract($header);
 		$title = ($title) ?? 'Home - Quiz';
-		// day 1 mang du lieu sang view va lay key cua mang do lam bien truyen ra ngoai view
+		// Lay 1 mang du lieu sang view va lay key cua mang do lam bien truyen ra ngoai view
 		require 'app/view/common/header_view.php';
 	}
 
