@@ -7,6 +7,8 @@ if(file_exists('router/web.php')){
 	
 	// dinh nghia 1 hang so chi dinh duong dan thuc thi ung dung(duong dan den file goc index)
 	// dung tu khoa define de dinh nghia hang so
+	// khoi dong session - de cho moi cho khac deu su dung dc session
+	session_start();
 	define('ROOT_PATH','index.php');
 
 	// nhung file web.php vao day

@@ -29,6 +29,9 @@ class HomeController extends Controller
 
 	public function index()
 	{
+		if(isset($_SESSION['idQuestions'])) {
+			unset($_SESSION['idQuestions']);
+		}
 		$data = [];
 		$data['question'] = $this->home->getDataRandomQuestion();
 		$idQuestion = $data['question']['id'] ?? 0;
@@ -59,6 +62,26 @@ class HomeController extends Controller
 		$anser = $this->home->checkingAnswerQuestion($idQuestion, $idAnswer);
 		// tra ket qua ve cho view ajax
 		echo $anser;
+	}
+
+	public function loadMoreQuestion()
+	{
+		$id = $_POST['id'] ?? '';
+		$id = is_numeric($id) ? $id : 0;
+		$_SESSION['idQuestions'][$id] = $id;
+		
+		// chuyen mang ve chuoi de xu ly
+		$strId = implode(',', $_SESSION['idQuestions']);
+		// id cua cau hoi da tung tra loi
+		// luc load them du lieu thi khong lay no ra nua
+	
+		$data = [];
+		$data['question'] = $this->home->loadMoreDataQuestion($strId);
+		// lay ra cau tra loi tuong ung
+		$idQuestion = $data['question']['id'] ?? 0;
+		$data['answers'] = $this->home->getDataAnswerByIdQuestion($idQuestion);
+		$this->loadView('home/index_view.php',$data);
+
 	}
 }
 

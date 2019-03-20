@@ -2,37 +2,41 @@
 
 <div class="col-md-10 column" id="content-data">
 	<h1>Quiz Questions !</h1>
-	<div>
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title">
-					<?= $question['name_question']; ?>
-				</h3>
-				<input type="hidden" name="idQuestion" id="idQuestion" value="<?= $question['id']; ?>">
-			</div>
-			<div class="panel-body">
-				<?php foreach($answers as $key => $item): ?>
-				<div class="radio">
-					<label>
+	<?php if($question): ?>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<?= $question['name_question']; ?>
+			</h3>
+			<input type="hidden" name="idQuestion" id="idQuestion" value="<?= $question['id']; ?>">
+		</div>
+		<div class="panel-body">
+			<?php foreach($answers as $key => $item): ?>
+			<div class="radio">
+				<label>
 
-						<input type="radio" name="optionsRadios" id="optionsRadios<?= $item['id']; ?>" value="<?= $item['id']; ?>">
-						<?= $item['name_answer']; ?>
-					</label>
-				</div>
-				<?php endforeach; ?>
+					<input type="radio" name="optionsRadios" id="optionsRadios<?= $item['id']; ?>" value="<?= $item['id']; ?>">
+					<?= $item['name_answer']; ?>
+				</label>
 			</div>
-			<div class="panel-footer">
-				<div class="row">
-					<div class="col-sm-12 col-md-2">
-						<button class="btn btn-primary btn-block confirm" role="button">Xác nhận</button>
-					</div>
-					<div class="col-sm-12 col-md-2">
-						<button class="btn btn-default btn-block disabled next" role="button">Tiếp theo</button>
-					</div>
+			<?php endforeach; ?>
+		</div>
+		<div class="panel-footer">
+			<div class="row">
+				<div class="col-sm-12 col-md-2">
+					<button class="btn btn-primary btn-block confirm" role="button">Xác nhận</button>
+				</div>
+				<div class="col-sm-12 col-md-2">
+					<button class="btn btn-default btn-block disabled next" role="button">Tiếp theo</button>
 				</div>
 			</div>
 		</div>
 	</div>
+	<?php else: ?>
+	<div class="panel panel-primary">
+		<h3 class="px-3">Chúc mừng bạn đã trả lời đúng hết tất cả các câu hỏi !</h3>
+	</div>
+	<?php endif; ?>
 </div>
 <script type="text/javascript">
 	// xu ly ajax de tra loi cau hoi
@@ -60,15 +64,17 @@
 					success: function(result){
 						// an thong bao send data
 						$('#loading-data').hide();
-
+						$("div.radio").css('background-color', 'white');
 						// result : ket qua ben phia server tra ve
 						result = $.trim(result);
 						if(result == 0){
 							alert('Dap an khong chinh xac');
+							$("input[name='optionsRadios']:checked").parent().parent().css('background-color', 'red');
 							$('.next').addClass('disabled');
 							$('.next').attr('disabled', true);
 						} else if (result == 1) {
 							alert('Dan an chinh xac');
+							$("input[name='optionsRadios']:checked").parent().parent().css('background-color', 'yellow');
 							// cho phep nut tiep theo dc bam
 							$('.next').removeClass('disabled');
 							$('.next').attr('disabled', false);
@@ -83,6 +89,30 @@
 			} else {
 				alert('Vui long chon cau tra loi');
 				return false;
+			}
+		});
+
+		// xu ly load next question
+		$('.next').click(function(){
+			let question = $.trim($('#idQuestion').val());
+			// loai tru bo di chinh cau hoi nay
+			if($.isNumeric(question)){
+				$.ajax({
+					url: "?c=home&m=loadMoreQuestion",
+					type: "POST",
+					data: {id: question},
+					beforeSend: function(){
+						$('#loading-data').show();
+					},
+					success: function(res){
+						$('#loading-data').hide();
+						if(res){
+							$('#content-data').html(res);
+						}
+						$('.next').addClass('disabled');
+						$('.next').attr('disabled', true);
+					}
+				});
 			}
 		});
 	});

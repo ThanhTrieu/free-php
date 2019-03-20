@@ -19,6 +19,34 @@ class HomeModel extends Database
 		parent::__construct();
 	}
 
+	public function loadMoreDataQuestion($strId)
+	{
+		
+
+		$data = []; // tao mang rong - muc dich se do du lieu vao day
+		// lay ngau nhien 1 cau hoi trong database
+		
+		$ids = preg_split('/\s*,\s*/', $strId, -1, PREG_SPLIT_NO_EMPTY);
+		$placeHolders = implode(', ', array_fill(0, count($ids), '?'));
+		
+		$sql = "SELECT * FROM questions AS a WHERE a.id NOT IN ($placeHolders) LIMIT 1";
+		// kiem tra xem cau lenh sql co the thuc thi dc ko?
+		$stmt = $this->db->prepare($sql);
+		if($stmt){
+			foreach ($ids as $index => $value) {
+			    $stmt->bindValue($index + 1, $value, PDO::PARAM_INT);
+			}
+			// thuc thi lenh sql
+			if($stmt->execute()){
+				// tra ve 1 mang du lieu(mang don) voi key cua mang la cac truong nam trong database
+				$data = $stmt->fetch(PDO::FETCH_ASSOC);
+			}
+			// dung lenh execute de co the thuc thi tiep cac lenh sql tiep theo neu co
+			$stmt->closeCursor();
+		}
+		return $data;
+	}
+
 	public function checkingAnswerQuestion($idQuestion, $idAnswer)
 	{
 		// :questions_id : cu phap pdo php
